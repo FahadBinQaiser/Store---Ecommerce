@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:edit, :update, :show, :destroy]
-  
+  allow_unauthenticated_access only: [ :index, :show ]
+  before_action :set_product, only: [ :edit, :update, :show, :destroy ]
+
   def index
     @products = Product.all
   end
