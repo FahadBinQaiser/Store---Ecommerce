@@ -1,6 +1,12 @@
 class ProductsController < ApplicationController
   allow_unauthenticated_access only: [ :index, :show ]
   before_action :set_product, only: [ :edit, :update, :show, :destroy ]
+  around_action :switch_locale
+
+  def switch_locale(&action)
+    locale = params[:locale] || I18n.default_locale
+    I18n.with_locale(locale, &action)
+  end
 
   def index
     @products = Product.all
